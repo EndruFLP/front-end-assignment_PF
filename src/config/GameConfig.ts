@@ -1,0 +1,165 @@
+import type { MatchCount, SymbolId } from './types';
+
+//to do
+// luat toate datele din readme
+//gandit structura pt config
+
+export class GameConfig {
+	static readonly ROWS = 3;
+	static readonly REELS = 5;
+	static readonly INITIAL_POS = [0, 0, 0, 0, 0];
+
+	static readonly REEL_BANDS: SymbolId[][] = [
+		[
+			'hv2',
+			'lv3',
+			'lv3',
+			'hv1',
+			'hv1',
+			'lv1',
+			'hv1',
+			'hv4',
+			'lv1',
+			'hv3',
+			'hv2',
+			'hv3',
+			'lv4',
+			'hv4',
+			'lv1',
+			'hv2',
+			'lv4',
+			'lv1',
+			'lv3',
+			'hv2',
+		],
+		[
+			'hv1',
+			'lv2',
+			'lv3',
+			'lv2',
+			'lv1',
+			'lv1',
+			'lv4',
+			'lv1',
+			'lv1',
+			'hv4',
+			'lv3',
+			'hv2',
+			'lv1',
+			'lv3',
+			'hv1',
+			'lv1',
+			'lv2',
+			'lv4',
+			'lv3',
+			'lv2',
+		],
+		[
+			'lv1',
+			'hv2',
+			'lv3',
+			'lv4',
+			'hv3',
+			'hv2',
+			'lv2',
+			'hv2',
+			'hv2',
+			'lv1',
+			'hv3',
+			'lv1',
+			'hv1',
+			'lv2',
+			'hv3',
+			'hv2',
+			'hv4',
+			'hv1',
+			'lv2',
+			'lv4',
+		],
+		[
+			'hv2',
+			'lv2',
+			'hv3',
+			'lv2',
+			'lv4',
+			'lv4',
+			'hv3',
+			'lv2',
+			'lv4',
+			'hv1',
+			'lv1',
+			'hv1',
+			'lv2',
+			'hv3',
+			'lv2',
+			'lv3',
+			'hv2',
+			'lv1',
+			'hv3',
+			'lv2',
+		],
+		[
+			'lv3',
+			'lv4',
+			'hv2',
+			'hv3',
+			'hv4',
+			'hv1',
+			'hv3',
+			'hv2',
+			'hv2',
+			'hv4',
+			'hv4',
+			'hv2',
+			'lv2',
+			'hv4',
+			'hv1',
+			'lv2',
+			'hv1',
+			'lv2',
+			'hv4',
+			'lv4',
+		],
+	];
+
+	// cat plateste fiecare symobl
+	static readonly PAYTABLE: Record<SymbolId, Record<MatchCount, number>> = {
+		hv1: { 3: 10, 4: 20, 5: 50 },
+		hv2: { 3: 5, 4: 10, 5: 20 },
+		hv3: { 3: 5, 4: 10, 5: 15 },
+		hv4: { 3: 5, 4: 10, 5: 15 },
+		lv1: { 3: 2, 4: 5, 5: 10 },
+		lv2: { 3: 1, 4: 2, 5: 5 },
+		lv3: { 3: 1, 4: 2, 5: 3 },
+		lv4: { 3: 1, 4: 2, 5: 3 },
+	};
+
+	//winline-uri
+	static readonly PAYLINES: ReadonlyArray<{ id: number; rows: number[] }> = [
+		{ id: 1, rows: [1, 1, 1, 1, 1] },
+		{ id: 2, rows: [0, 0, 0, 0, 0] },
+		{ id: 3, rows: [2, 2, 2, 2, 2] },
+		{ id: 4, rows: [0, 0, 1, 2, 2] },
+		{ id: 5, rows: [2, 2, 1, 0, 0] },
+		{ id: 6, rows: [0, 1, 2, 1, 0] },
+		{ id: 7, rows: [2, 1, 0, 1, 2] },
+	];
+
+	//simboluri
+	static readonly SYMBOL_ASSETS: Record<SymbolId, string> = {
+		hv1: '/hv1_symbol.png',
+		hv2: '/hv2_symbol.png',
+		hv3: '/hv3_symbol.png',
+		hv4: '/hv4_symbol.png',
+		lv1: '/lv1_symbol.png',
+		lv2: '/lv2_symbol.png',
+		lv3: '/lv3_symbol.png',
+		lv4: '/lv4_symbol.png',
+	};
+
+	static readonly SPIN_BUTTON_IMG = '/spin_button.png';
+
+	static getAllAssetPaths(): string[] {
+		return [...Object.values(GameConfig.SYMBOL_ASSETS), GameConfig.SPIN_BUTTON_IMG];
+	}
+}

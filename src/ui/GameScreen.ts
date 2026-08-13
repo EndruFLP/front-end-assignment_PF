@@ -7,6 +7,8 @@ import WinText from './WinText';
 
 const PAD = 32;
 const SECTION = 28;
+//extra gap?
+const REELS_TO_BUTTON = 48;
 const WIN_H = 160;
 
 export default class GameScreen extends Container {
@@ -22,7 +24,7 @@ export default class GameScreen extends Container {
 		super();
 
 		this.spinButton = new SpinButton(() => this.onSpin());
-		this.addChild(this.reelsView, this.spinButton, this.winText);
+		this.addChild(this.spinButton, this.reelsView, this.winText);
 		this.refresh();
 	}
 
@@ -33,8 +35,6 @@ export default class GameScreen extends Container {
 			this.layoutPortrait();
 		}
 	}
-
-	//pe mobile nu e bine inca (land + portrt)
 
 	private layoutLandscape(): void {
 		const rw = this.reelsView.gridWidth;
@@ -61,13 +61,13 @@ export default class GameScreen extends Container {
 		const btn = this.spinButton.size;
 
 		this.layoutWidth = Math.max(rw, btn) + PAD * 2;
-		this.layoutHeight = PAD + rh + SECTION + btn + SECTION + WIN_H + PAD;
+		this.layoutHeight = PAD + rh + REELS_TO_BUTTON + btn + SECTION + WIN_H + PAD;
 
 		this.reelsView.x = (this.layoutWidth - rw) / 2;
 		this.reelsView.y = PAD;
 
 		this.spinButton.x = this.layoutWidth / 2;
-		this.spinButton.y = this.reelsView.y + rh + SECTION + this.spinButton.radius;
+		this.spinButton.y = this.reelsView.y + rh + REELS_TO_BUTTON + this.spinButton.radius;
 
 		this.winText.x = this.layoutWidth / 2;
 		this.winText.y = this.spinButton.y + this.spinButton.radius + SECTION;

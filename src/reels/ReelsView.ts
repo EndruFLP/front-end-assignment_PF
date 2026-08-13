@@ -48,6 +48,8 @@ export default class ReelsView extends Container {
 				}
 
 				sprite.texture = Texture.from(GameConfig.SYMBOL_ASSETS[id]);
+				sprite.width = CELL;
+				sprite.height = CELL;
 			}
 		}
 	}

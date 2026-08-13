@@ -7,6 +7,8 @@ export default class App {
 		const pixi = new Application();
 		await pixi.init({
 			resizeTo: window,
+			autoDensity: true,
+			resolution: Math.min(window.devicePixelRatio || 1, 2),
 			background: 'rebeccapurple',
 			antialias: true,
 		});
@@ -28,11 +30,11 @@ export default class App {
 		const onResize = (): void => {
 			preloader.layoutSettings(pixi.screen.width, pixi.screen.height);
 		};
-		window.addEventListener('resize', onResize);
+		pixi.renderer.on('resize', onResize);
 
 		await preloader.run();
 
-		window.removeEventListener('resize', onResize);
+		pixi.renderer.off('resize', onResize);
 		root.removeChild(preloader);
 		preloader.destroy({ children: true });
 	}
@@ -41,17 +43,34 @@ export default class App {
 		const game = new GameScreen();
 		root.addChild(game);
 
-		const layoutGame = (): void => {
-			game.layoutForViewport(pixi.screen.width, pixi.screen.height);
+		let rafId = 0;
 
-			const scale = Math.min(pixi.screen.width / game.layoutWidth, pixi.screen.height / game.layoutHeight);
+		const layoutGame = (): void => {
+			const { width, height } = pixi.screen;
+
+			game.layoutForViewport(width, height);
+
+			const scale = Math.min(width / game.layoutWidth, height / game.layoutHeight);
 
 			game.scale.set(scale);
-			game.x = (pixi.screen.width - game.layoutWidth * scale) / 2;
-			game.y = (pixi.screen.height - game.layoutHeight * scale) / 2;
+			game.x = (width - game.layoutWidth * scale) / 2;
+			game.y = (height - game.layoutHeight * scale) / 2;
+		};
+
+		const scheduleLayout = (): void => {
+			cancelAnimationFrame(rafId);
+			rafId = requestAnimationFrame(() => {
+				requestAnimationFrame(layoutGame);
+			});
 		};
 
 		layoutGame();
-		window.addEventListener('resize', layoutGame);
+
+		pixi.renderer.on('resize', scheduleLayout);
+
+		window.addEventListener('orientationchange', () => {
+			window.setTimeout(scheduleLayout, 100);
+			window.setTimeout(scheduleLayout, 300);
+		});
 	}
 }

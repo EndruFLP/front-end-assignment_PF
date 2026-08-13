@@ -1,9 +1,5 @@
 import type { MatchCount, SymbolId } from './types';
 
-//to do
-// luat toate datele din readme
-//gandit structura pt config
-
 export default class GameConfig {
 	static readonly ROWS = 3;
 	static readonly REELS = 5;
@@ -122,7 +118,6 @@ export default class GameConfig {
 		],
 	];
 
-	// cat plateste fiecare symobl
 	static readonly PAYTABLE: Record<SymbolId, Record<MatchCount, number>> = {
 		hv1: { 3: 10, 4: 20, 5: 50 },
 		hv2: { 3: 5, 4: 10, 5: 20 },
@@ -134,7 +129,6 @@ export default class GameConfig {
 		lv4: { 3: 1, 4: 2, 5: 3 },
 	};
 
-	//winline-uri
 	static readonly PAYLINES: ReadonlyArray<{ id: number; rows: number[] }> = [
 		{ id: 1, rows: [1, 1, 1, 1, 1] },
 		{ id: 2, rows: [0, 0, 0, 0, 0] },
@@ -145,7 +139,6 @@ export default class GameConfig {
 		{ id: 7, rows: [2, 1, 0, 1, 2] },
 	];
 
-	//simboluri
 	static readonly SYMBOL_ASSETS: Record<SymbolId, string> = {
 		hv1: '/hv1_symbol.png',
 		hv2: '/hv2_symbol.png',

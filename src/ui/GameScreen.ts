@@ -7,7 +7,6 @@ import WinText from './WinText';
 
 const PAD = 32;
 const SECTION = 28;
-//extra gap?
 const REELS_TO_BUTTON = 48;
 const WIN_H = 160;
 
@@ -26,6 +25,8 @@ export default class GameScreen extends Container {
 		this.spinButton = new SpinButton(() => this.onSpin());
 		this.addChild(this.spinButton, this.reelsView, this.winText);
 		this.refresh();
+
+		window.addEventListener('keydown', this.onKeyDown);
 	}
 
 	layoutForViewport(width: number, height: number): void {
@@ -73,6 +74,14 @@ export default class GameScreen extends Container {
 		this.winText.y = this.spinButton.y + this.spinButton.radius + SECTION;
 		this.winText.setBounds(this.layoutWidth - PAD * 2, WIN_H);
 	}
+
+	private onKeyDown = (event: KeyboardEvent): void => {
+		if (event.code !== 'Space' || event.repeat) {
+			return;
+		}
+		event.preventDefault();
+		this.onSpin();
+	};
 
 	private onSpin(): void {
 		this.reelSet.spin();

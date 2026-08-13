@@ -1,19 +1,24 @@
-import { Container, Sprite, Texture } from 'pixi.js';
+import { Container, Graphics, Sprite, Texture } from 'pixi.js';
 import GameConfig from '../config/GameConfig';
 import type { Screen } from '../config/types';
 
 const CELL = 96;
 const GAP = 8;
+const BG_PAD = 10;
+const BG_GOLD = '#c9a227';
 
 export default class ReelsView extends Container {
 	private readonly sprites: Sprite[][] = [];
 
-	readonly gridWidth = GameConfig.REELS * CELL + (GameConfig.REELS - 1) * GAP;
+	readonly gridWidth = GameConfig.REELS * CELL + (GameConfig.REELS - 1) * GAP + BG_PAD * 2;
 
-	readonly gridHeight = GameConfig.ROWS * CELL + (GameConfig.ROWS - 1) * GAP;
+	readonly gridHeight = GameConfig.ROWS * CELL + (GameConfig.ROWS - 1) * GAP + BG_PAD * 2;
 
 	constructor() {
 		super();
+
+		const background = new Graphics().roundRect(0, 0, this.gridWidth, this.gridHeight, 5).fill(BG_GOLD);
+		this.addChild(background);
 
 		for (let row = 0; row < GameConfig.ROWS; row += 1) {
 			const rowSprites: Sprite[] = [];
@@ -22,8 +27,8 @@ export default class ReelsView extends Container {
 				const sprite = new Sprite();
 				sprite.width = CELL;
 				sprite.height = CELL;
-				sprite.x = col * (CELL + GAP);
-				sprite.y = row * (CELL + GAP);
+				sprite.x = BG_PAD + col * (CELL + GAP);
+				sprite.y = BG_PAD + row * (CELL + GAP);
 				this.addChild(sprite);
 				rowSprites.push(sprite);
 			}

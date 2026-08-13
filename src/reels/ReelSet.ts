@@ -27,7 +27,6 @@ export default class ReelSet {
 		this.reels.forEach((reel) => reel.spinRandom());
 	}
 
-	// tabla 3x5
 	getScreen(): Screen {
 		const columns = this.reels.map((reel) => reel.getVisibleSymbols());
 		return Array.from({ length: GameConfig.ROWS }, (_, row) => columns.map((column) => column[row]!));

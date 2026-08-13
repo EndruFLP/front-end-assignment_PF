@@ -43,7 +43,6 @@ export default class Preloader extends Container {
 		this.alpha = 0;
 	}
 
-	//centrari
 	layoutSettings(width: number, height: number) {
 		const offX = width / 2;
 		const offY = height / 2;

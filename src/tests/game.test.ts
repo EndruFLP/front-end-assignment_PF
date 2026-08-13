@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { WinCalculator } from '../paylines/WinCalculator.ts';
+import WinCalculator from '../paylines/WinCalculator.ts';
 import ReelSet from '../reels/ReelSet.ts';
 
 function makeReels(positions: number[]): ReelSet {
@@ -13,9 +13,9 @@ describe('Screen symbols', () => {
 		const reels = makeReels([0, 0, 0, 0, 0]);
 
 		expect(reels.getScreen()).toEqual([
-			['hv2', 'hv1', 'lv1', 'hv2', 'lv3'], // sus
-			['lv3', 'lv2', 'hv2', 'lv2', 'lv4'], // mijloc
-			['lv3', 'lv3', 'lv3', 'hv3', 'hv2'], // jos
+			['hv2', 'hv1', 'lv1', 'hv2', 'lv3'],
+			['lv3', 'lv2', 'hv2', 'lv2', 'lv4'],
+			['lv3', 'lv3', 'lv3', 'hv3', 'hv2'],
 		]);
 	});
 

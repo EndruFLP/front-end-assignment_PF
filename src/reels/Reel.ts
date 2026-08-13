@@ -27,7 +27,6 @@ export default class Reel {
 		this.position = Math.floor(Math.random() * this.band.length);
 	}
 
-	//ce se vede pe un reel - simboluiri de sus in jos
 	getVisibleSymbols(): SymbolId[] {
 		return Array.from({ length: GameConfig.ROWS }, (_, row) => {
 			const index = (this.position + row) % this.band.length;

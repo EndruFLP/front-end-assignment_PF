@@ -1,4 +1,4 @@
-import { GameConfig } from '../config/GameConfig';
+import GameConfig from '../config/GameConfig';
 import type { SymbolId } from '../config/types';
 
 export default class Reel {

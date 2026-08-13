@@ -1,4 +1,4 @@
-import { GameConfig } from '../config/GameConfig';
+import GameConfig from '../config/GameConfig';
 import Reel from './Reel';
 import type { SymbolId, Screen } from '../config/types';
 

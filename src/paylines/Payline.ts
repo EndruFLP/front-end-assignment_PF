@@ -1,8 +1,8 @@
-import { GameConfig } from '../config/GameConfig';
+import GameConfig from '../config/GameConfig';
 import type { MatchCount, Screen, SymbolId } from '../config/types';
 import type { LineWin } from './LineWin';
 
-export class Payline {
+export default class Payline {
 	constructor(
 		readonly id: number,
 		readonly rows: readonly number[],

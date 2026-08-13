@@ -1,7 +1,7 @@
 import { Container, Text } from 'pixi.js';
 
 /** Multiline win text that scales to fit the available area. */
-export class WinText extends Container {
+export default class WinText extends Container {
 	private readonly winLabel: Text;
 	private maxW = 0;
 	private maxH = 0;

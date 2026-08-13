@@ -1,7 +1,7 @@
 import type { LineWin } from './LineWin';
 
 //totalul de sub tabla
-export class WinResult {
+export default class WinResult {
 	constructor(
 		readonly totalWins: number,
 		readonly lineWins: readonly LineWin[],

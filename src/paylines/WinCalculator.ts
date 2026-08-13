@@ -1,10 +1,9 @@
-import { GameConfig } from '../config/GameConfig';
+import GameConfig from '../config/GameConfig';
 import type { Screen } from '../config/types';
 import type { LineWin } from './LineWin';
-import { Payline } from './Payline';
-import { WinResult } from './WinResult.ts';
-
-export class WinCalculator {
+import Payline from './Payline';
+import WinResult from './WinResult.ts';
+export default class WinCalculator {
 	private readonly paylines: Payline[] = [];
 
 	constructor() {

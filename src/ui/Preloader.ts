@@ -1,5 +1,5 @@
 import { Container, Assets, Graphics, Text } from 'pixi.js';
-import { GameConfig } from '../config/GameConfig';
+import GameConfig from '../config/GameConfig';
 
 const BAR_WIDTH = 280;
 const BAR_HEIGHT = 14;

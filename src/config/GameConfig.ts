@@ -4,7 +4,7 @@ import type { MatchCount, SymbolId } from './types';
 // luat toate datele din readme
 //gandit structura pt config
 
-export class GameConfig {
+export default class GameConfig {
 	static readonly ROWS = 3;
 	static readonly REELS = 5;
 	static readonly INITIAL_POS = [0, 0, 0, 0, 0];

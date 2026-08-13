@@ -1,5 +1,5 @@
 import { Container, Sprite, Texture } from 'pixi.js';
-import { GameConfig } from '../config/GameConfig';
+import GameConfig from '../config/GameConfig';
 import type { Screen } from '../config/types';
 
 const CELL = 96;

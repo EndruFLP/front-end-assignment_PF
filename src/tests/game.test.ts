@@ -59,6 +59,32 @@ describe('Payline wins', () => {
 		expect(result.totalWins).toBe(0);
 		expect(result.lineWins).toEqual([]);
 	});
+
+	it('Matches positions 5,14,9,9,16 from the reel bands', () => {
+		const screen = makeReels([5, 14, 9, 9, 16]).getScreen();
+		const result = calculator.calculate(screen);
+
+		expect(screen).toEqual([
+			['lv1', 'hv1', 'lv1', 'hv1', 'hv1'],
+			['hv1', 'lv1', 'hv3', 'lv1', 'lv2'],
+			['hv4', 'lv2', 'lv1', 'hv1', 'hv4'],
+		]);
+		expect(result.totalWins).toBe(5);
+		expect(result.lineWins).toEqual([{ paylineId: 6, symbolId: 'lv1', matchCount: 4, payout: 5 }]);
+	});
+
+	it('Returns total 0 for positions 1,16,2,15,0', () => {
+		const screen = makeReels([1, 16, 2, 15, 0]).getScreen();
+		const result = calculator.calculate(screen);
+
+		expect(screen).toEqual([
+			['lv3', 'lv2', 'lv3', 'lv3', 'lv3'],
+			['lv3', 'lv4', 'lv4', 'hv2', 'lv4'],
+			['hv1', 'lv3', 'hv3', 'lv1', 'hv2'],
+		]);
+		expect(result.totalWins).toBe(0);
+		expect(result.lineWins).toEqual([]);
+	});
 });
 
 describe('Win display text', () => {

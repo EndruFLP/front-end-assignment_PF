@@ -3,12 +3,14 @@ import GameConfig from '../config/GameConfig';
 
 const BAR_WIDTH = 280;
 const BAR_HEIGHT = 14;
-
 export default class Preloader extends Container {
 	private readonly title: Text;
 	private readonly percentText: Text;
 	private readonly barBackground: Graphics;
 	private readonly barFill: Graphics;
+	private readonly tapToContinue: Text;
+	private pulseRaf = 0;
+	private onWindowTap: (() => void) | null = null;
 
 	constructor() {
 		super();
@@ -39,7 +41,18 @@ export default class Preloader extends Container {
 
 		this.barFill = new Graphics();
 
-		this.addChild(this.title, this.percentText, this.barBackground, this.barFill);
+		this.tapToContinue = new Text({
+			text: 'Tap to continue',
+			style: {
+				fontFamily: 'Arial',
+				fontSize: 30,
+				fill: '#ffffff',
+			},
+		});
+		this.tapToContinue.anchor.set(0.5);
+		this.tapToContinue.visible = false;
+
+		this.addChild(this.title, this.percentText, this.barBackground, this.barFill, this.tapToContinue);
 		this.alpha = 0;
 	}
 
@@ -51,6 +64,7 @@ export default class Preloader extends Container {
 		this.percentText.position.set(offX, offY);
 		this.barBackground.position.set(offX, offY + 55);
 		this.barFill.position.set(offX, offY + 55);
+		this.tapToContinue.position.set(offX, offY + 150);
 	}
 
 	async run() {
@@ -61,8 +75,48 @@ export default class Preloader extends Container {
 		});
 
 		this.setProgress(1);
-		await this.wait(1200);
+		this.startTapPulse();
+		await this.waitForTap();
 		await this.fade(0, 300);
+	}
+
+	private waitForTap(): Promise<void> {
+		return new Promise((resolve) => {
+			this.onWindowTap = (): void => {
+				this.onWindowTap = null;
+				this.stopTapPulse();
+				resolve();
+			};
+			window.addEventListener('pointerdown', this.onWindowTap, { once: true });
+		});
+	}
+
+	private startTapPulse(): void {
+		this.tapToContinue.visible = true;
+
+		let from = 1;
+		let to = 0.2;
+		let startedAt = performance.now();
+
+		const tick = (): void => {
+			const t = Math.min(1, (performance.now() - startedAt) / 500);
+			this.tapToContinue.alpha = from + (to - from) * t;
+
+			if (t >= 1) {
+				const next = from;
+				from = to;
+				to = next;
+				startedAt = performance.now();
+			}
+
+			this.pulseRaf = requestAnimationFrame(tick);
+		};
+
+		this.pulseRaf = requestAnimationFrame(tick);
+	}
+
+	private stopTapPulse(): void {
+		cancelAnimationFrame(this.pulseRaf);
 	}
 
 	private setProgress(progress: number): void {
@@ -98,7 +152,12 @@ export default class Preloader extends Container {
 		});
 	}
 
-	private wait(ms: number): Promise<void> {
-		return new Promise((resolve) => setTimeout(resolve, ms));
+	override destroy(options?: Parameters<Container['destroy']>[0]): void {
+		if (this.onWindowTap) {
+			window.removeEventListener('pointerdown', this.onWindowTap);
+			this.onWindowTap = null;
+		}
+		this.stopTapPulse();
+		super.destroy(options);
 	}
 }

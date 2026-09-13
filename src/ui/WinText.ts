@@ -1,4 +1,5 @@
 import { Container, Text } from 'pixi.js';
+import Theme from '../config/Theme';
 
 /** Multiline win text that scales to fit the available area. */
 export default class WinText extends Container {
@@ -14,7 +15,7 @@ export default class WinText extends Container {
 			style: {
 				fontFamily: 'Arial, sans-serif',
 				fontSize: 22,
-				fill: '#ffffff',
+				fill: Theme.TEXT,
 				align: 'left',
 				wordWrap: true,
 				wordWrapWidth: 700,

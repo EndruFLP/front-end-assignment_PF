@@ -1,4 +1,5 @@
 import { Container, Graphics, Text } from 'pixi.js';
+import Theme from '../config/Theme';
 
 const BTN = 40;
 
@@ -8,14 +9,14 @@ export default class StepButton extends Container {
 	constructor(label: string, onClick: () => void) {
 		super();
 
-		this.background = new Graphics().roundRect(-BTN / 2, -BTN / 2, BTN, BTN, 8).fill('#e4c04a');
+		this.background = new Graphics().roundRect(-BTN / 2, -BTN / 2, BTN, BTN, 8).fill(Theme.GOLD);
 
 		const text = new Text({
 			text: label,
 			style: {
 				fontFamily: 'Arial, sans-serif',
 				fontSize: 28,
-				fill: '#1a1a1a',
+				fill: Theme.INK,
 			},
 		});
 		text.anchor.set(0.5);

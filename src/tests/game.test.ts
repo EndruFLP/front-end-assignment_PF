@@ -52,6 +52,20 @@ describe('Payline wins', () => {
 		expect(result.lineWins).toEqual([{ paylineId: 3, symbolId: 'lv3', matchCount: 3, payout: 1 }]);
 	});
 
+	it('Highlights the matching cells on winning paylines', () => {
+		const screen = makeReels([0, 11, 1, 10, 14]).getScreen();
+		const result = calculator.calculate(screen);
+
+		expect(result.highlightCells).toEqual([
+			{ row: 0, col: 0 },
+			{ row: 0, col: 1 },
+			{ row: 0, col: 2 },
+			{ row: 2, col: 0 },
+			{ row: 2, col: 1 },
+			{ row: 1, col: 2 },
+		]);
+	});
+
 	it('Returns total 0 when there is no winning line', () => {
 		const screen = makeReels([18, 9, 2, 0, 12]).getScreen();
 		const result = calculator.calculate(screen);

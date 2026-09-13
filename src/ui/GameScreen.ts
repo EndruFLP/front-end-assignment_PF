@@ -98,7 +98,8 @@ export default class GameScreen extends Container {
 
 	private refresh(): void {
 		const screen = this.reelSet.getScreen();
-		this.reelsView.update(screen);
-		this.winText.setText(this.winCalculator.calculate(screen, this.bettingLayout.bet).toDisplayText());
+		const result = this.winCalculator.calculate(screen, this.bettingLayout.bet);
+		this.reelsView.update(screen, result.highlightCells);
+		this.winText.setText(result.toDisplayText());
 	}
 }

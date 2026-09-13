@@ -1,5 +1,6 @@
 import { Container, Text } from 'pixi.js';
 import GameConfig from '../config/GameConfig';
+import Theme from '../config/Theme';
 import StepButton from '../button/StepButton';
 
 const BTN = 40;
@@ -22,7 +23,7 @@ export default class BettingLayout extends Container {
 			style: {
 				fontFamily: 'Arial, sans-serif',
 				fontSize: 20,
-				fill: 0xffffff,
+				fill: Theme.TEXT,
 			},
 		});
 		this.betText.anchor.set(0.5);

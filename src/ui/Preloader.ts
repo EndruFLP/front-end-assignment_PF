@@ -1,5 +1,6 @@
 import { Container, Assets, Graphics, Text } from 'pixi.js';
 import GameConfig from '../config/GameConfig';
+import Theme from '../config/Theme';
 
 const BAR_WIDTH = 280;
 const BAR_HEIGHT = 14;
@@ -20,7 +21,7 @@ export default class Preloader extends Container {
 			style: {
 				fontFamily: 'Arial',
 				fontSize: 28,
-				fill: '#b8c0d0',
+				fill: Theme.TEXT_MUTED,
 			},
 		});
 		this.title.anchor.set(0.5);
@@ -30,7 +31,7 @@ export default class Preloader extends Container {
 			style: {
 				fontFamily: 'Arial',
 				fontSize: 54,
-				fill: '#ffffff',
+				fill: Theme.TEXT,
 			},
 		});
 		this.percentText.anchor.set(0.5);
@@ -46,7 +47,7 @@ export default class Preloader extends Container {
 			style: {
 				fontFamily: 'Arial',
 				fontSize: 30,
-				fill: '#ffffff',
+				fill: Theme.TEXT,
 			},
 		});
 		this.tapToContinue.anchor.set(0.5);
@@ -126,7 +127,7 @@ export default class Preloader extends Container {
 		this.barFill.clear();
 		const width = BAR_WIDTH * progress;
 		if (width > 0) {
-			this.barFill.roundRect(-BAR_WIDTH / 2, -BAR_HEIGHT / 2, width, BAR_HEIGHT, 7).fill({ color: '#f5d76e' });
+			this.barFill.roundRect(-BAR_WIDTH / 2, -BAR_HEIGHT / 2, width, BAR_HEIGHT, 7).fill(Theme.GOLD);
 		}
 	}
 

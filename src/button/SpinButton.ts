@@ -1,10 +1,9 @@
 import { Circle, Container, Graphics, Sprite, Texture } from 'pixi.js';
 import GameConfig from '../config/GameConfig';
+import Theme from '../config/Theme';
 
 const BUTTON_SIZE = 128;
 
-const BG_GOLD_HOVER = '#c9a227';
-const BG_GOLD = '#e4c04a';
 
 export default class SpinButton extends Container {
 	readonly size = BUTTON_SIZE;
@@ -13,7 +12,7 @@ export default class SpinButton extends Container {
 
 	constructor(onSpin: () => void) {
 		super();
-		this.background = new Graphics().circle(0, 0, this.size / 2.26).fill(BG_GOLD);
+		this.background = new Graphics().circle(0, 0, this.size / 2.26).fill(Theme.GOLD);
 		this.addChild(this.background);
 		this.sprite = new Sprite(Texture.from(GameConfig.SPIN_BUTTON_IMG));
 		this.sprite.anchor.set(0.5);
@@ -23,8 +22,8 @@ export default class SpinButton extends Container {
 		this.eventMode = 'static';
 		this.cursor = 'pointer';
 		this.hitArea = new Circle(0, 0, this.radius);
-		this.on('pointerover', () => this.setBackgroundColor(BG_GOLD_HOVER));
-		this.on('pointerout', () => this.setBackgroundColor(BG_GOLD));
+		this.on('pointerover', () => this.setBackgroundColor(Theme.GOLD_HOVER));
+		this.on('pointerout', () => this.setBackgroundColor(Theme.GOLD));
 		this.on('pointerdown', onSpin);
 	}
 

@@ -1,4 +1,5 @@
 import { Application, Container } from 'pixi.js';
+import Theme from './config/Theme';
 import Preloader from './ui/Preloader';
 import GameScreen from './ui/GameScreen';
 
@@ -9,7 +10,7 @@ export default class App {
 			resizeTo: window,
 			autoDensity: true,
 			resolution: Math.min(window.devicePixelRatio || 1, 2),
-			background: 'rebeccapurple',
+			background: Theme.APP_BG,
 			antialias: true,
 		});
 

@@ -4,6 +4,7 @@ import WinCalculator from '../paylines/WinCalculator';
 import ReelsView from '../reels/ReelsView';
 import SpinButton from '../button/SpinButton';
 import WinText from './WinText';
+import BettingLayout from '../bets/BettingLayout';
 
 const PAD = 32;
 const SECTION = 28;
@@ -19,11 +20,12 @@ export default class GameScreen extends Container {
 	private readonly reelsView = new ReelsView();
 	private readonly spinButton: SpinButton;
 	private readonly winText = new WinText();
+	private readonly bettingLayout = new BettingLayout();
 	constructor() {
 		super();
 
 		this.spinButton = new SpinButton(() => this.onSpin());
-		this.addChild(this.spinButton, this.reelsView, this.winText);
+		this.addChild(this.spinButton, this.reelsView, this.winText, this.bettingLayout);
 		this.refresh();
 
 		window.addEventListener('keydown', this.onKeyDown);
@@ -51,6 +53,9 @@ export default class GameScreen extends Container {
 		this.spinButton.x = this.reelsView.x + rw + SECTION + this.spinButton.radius;
 		this.spinButton.y = this.reelsView.y + rh / 2;
 
+		this.bettingLayout.x = this.reelsView.x + rw + SECTION + 40;
+		this.bettingLayout.y = this.reelsView.y + rh - 50;
+
 		this.winText.x = this.reelsView.x + rw / 2;
 		this.winText.y = this.reelsView.y + rh + SECTION;
 		this.winText.setBounds(rw, WIN_H);
@@ -69,6 +74,9 @@ export default class GameScreen extends Container {
 
 		this.spinButton.x = this.layoutWidth / 2;
 		this.spinButton.y = this.reelsView.y + rh + REELS_TO_BUTTON + this.spinButton.radius;
+
+		this.bettingLayout.x = this.layoutWidth / 2 - 70;
+		this.bettingLayout.y = this.spinButton.y + this.spinButton.radius + 8;
 
 		this.winText.x = this.layoutWidth / 2;
 		this.winText.y = this.spinButton.y + this.spinButton.radius + SECTION;
@@ -91,6 +99,6 @@ export default class GameScreen extends Container {
 	private refresh(): void {
 		const screen = this.reelSet.getScreen();
 		this.reelsView.update(screen);
-		this.winText.setText(this.winCalculator.calculate(screen).toDisplayText());
+		this.winText.setText(this.winCalculator.calculate(screen, this.bettingLayout.bet).toDisplayText());
 	}
 }

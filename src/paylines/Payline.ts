@@ -8,7 +8,7 @@ export default class Payline {
 		readonly rows: readonly number[],
 	) {}
 
-	evaluate(screen: Screen): LineWin | null {
+	evaluate(screen: Screen, bet = 1): LineWin | null {
 		const symbols: SymbolId[] = [];
 
 		for (let col = 0; col < this.rows.length; col += 1) {
@@ -41,7 +41,7 @@ export default class Payline {
 			paylineId: this.id,
 			symbolId,
 			matchCount: counted,
-			payout: GameConfig.PAYTABLE[symbolId][counted],
+			payout: GameConfig.PAYTABLE[symbolId][counted] * bet,
 		};
 	}
 

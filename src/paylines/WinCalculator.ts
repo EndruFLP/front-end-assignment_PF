@@ -12,12 +12,12 @@ export default class WinCalculator {
 		}
 	}
 
-	calculate(screen: Screen): WinResult {
+	calculate(screen: Screen, bet = 1): WinResult {
 		const lineWins: LineWin[] = [];
 		let totalWins = 0;
 
 		for (const payline of this.paylines) {
-			const win = payline.evaluate(screen);
+			const win = payline.evaluate(screen, bet);
 
 			if (win !== null) {
 				lineWins.push(win);

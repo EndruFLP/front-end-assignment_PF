@@ -73,6 +73,17 @@ describe('Payline wins', () => {
 		expect(result.lineWins).toEqual([{ paylineId: 6, symbolId: 'lv1', matchCount: 4, payout: 5 }]);
 	});
 
+	it('Multiplies paytable payouts by the bet', () => {
+		const screen = makeReels([0, 11, 1, 10, 14]).getScreen();
+		const result = calculator.calculate(screen, 2);
+
+		expect(result.totalWins).toBe(12);
+		expect(result.lineWins).toEqual([
+			{ paylineId: 2, symbolId: 'hv2', matchCount: 3, payout: 10 },
+			{ paylineId: 5, symbolId: 'lv3', matchCount: 3, payout: 2 },
+		]);
+	});
+
 	it('Returns total 0 for positions 1,16,2,15,0', () => {
 		const screen = makeReels([1, 16, 2, 15, 0]).getScreen();
 		const result = calculator.calculate(screen);
